@@ -3,6 +3,11 @@
 
 require './lib/coveragetrends'
 
+if ARGV[0].nil? || ARGV[1].nil?
+  puts 'You must specify a username and project; coveragetrends <username> <project>'
+  exit 0
+end
+
 coverage_trends = CoverageTrends.new(ARGV[0], ARGV[1])
 result = coverage_trends.run
 exit result
