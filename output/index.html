@@ -1,0 +1,77 @@
+<html>
+<head>
+  <title>Coverage Trends</title>
+  <script src="jquery-2.1.3.min.js"></script>
+  <script src="highcharts.js" charset="UTF-8"></script>
+  <style type="text/css">
+
+  </style>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div id="container" style="width:100%; height:400px;"></div>
+  <script>
+  $(function () {
+    $.getJSON('data.json', function(response){
+      $('#container').highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: 'Code Coverage'
+        },
+        xAxis: {
+            title: {
+              text: 'Build Number'
+            },
+            categories: response.map(function(d){ return d.build_num })
+        },
+        tooltip: {
+            shared: true,
+            valuePrefix: ''
+        },
+        yAxis: [
+          {
+            title: {
+                text: 'Lines of Code'
+            },
+            style: {
+                color: Highcharts.getOptions().colors[0]
+            }
+          },
+          {
+            title: {
+                text: 'Code Coverage'
+            },
+            min: 0,
+            max: 100,
+            labels: {
+              format: "{value}%"
+            },
+            opposite: true,
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+          }
+        ],
+        series: [
+        {
+          name: 'Lines of Code',
+          yAxis: 0,
+          data: response.map(function(d){ return d.relevant_lines })
+        },
+        {
+          name: 'Code Coverage',
+          yAxis: 1,
+          data: response.map(function(d){ return d.coverage }),
+          tooltip: {
+            valueSuffix: '%'
+          }
+        }
+        ]
+      });
+    });
+  });
+  </script>
+</body>
+</html>

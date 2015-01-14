@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require './lib/coveragetrends'
+
+coverage_trends = CoverageTrends.new(ARGV[0], ARGV[1])
+result = coverage_trends.run
+exit result
