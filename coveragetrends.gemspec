@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "A utility to generate a graph based on past CircleCI builds that included a SimpleCov run"
   s.authors     = ["Justin Steele"]
   s.email       = 'justin.steele@gmail.com'
-  s.files       = ["lib/coveragetrends.rb"]
+  s.files       = `git ls-files`.split($RS)
   s.homepage    =
     'http://rubygems.org/gems/coveragetrends'
   s.license       = 'MIT'
